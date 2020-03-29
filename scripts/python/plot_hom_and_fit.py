@@ -18,10 +18,16 @@ start_time = time.time()
 x = []
 y = []
 
+###############################
+#######get input file##########
+###############################
+top_directory=os.popen('git rev-parse --show-toplevel')
+top_directory = top_directory.read()
+input_file_name=top_directory.rstrip("\n")+'/data/CQNET_March2020/HOM.csv'
 ##############################
 ###Parse csv file and get list
 ##############################
-x,y = csv_parser('HOM.csv')
+x,y = csv_parser(input_file_name)
 
 ################################
 ##########PERFORM FIT###########
