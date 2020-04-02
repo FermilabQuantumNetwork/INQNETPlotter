@@ -14,35 +14,34 @@ import os
 import time
 
 
-#xAmplitudes = np.random.exponential(10,10000) #your data here
-#yAmplitudes = np.random.normal(50,10,10000) #your other data here - must be same array length
+
+fig = plt.figure()
+ax = fig.add_subplot(111, projection = "3d")
+
 zmax = 1.01
 zmin = 0.0
 #levels = np.arange(zmin, zmax, 0.4)
 #print(levels)
 # Boost the upper limit to avoid truncation errors.
 n_steps = 250
-#norm = cm.colors.Normalize(vmax=zmax, vmin=zmin)
+norm = cm.colors.Normalize(vmax=zmax, vmin=-zmax)
+#norm=cm.colors.LogNorm(vmin=-zmax, vmax=zmax)
 #cmap = cm.get_cmap('viridis', n_steps)
 #cmap = cm.get_cmap('RdBu',n_steps)
 cmap = cm.get_cmap('coolwarm',n_steps)
+print(cmap(1))
+#nodes = [0.0, 0.4, 0.8, 1.0]
+#cmap2 = cmap.from_list("mycmap", list(zip(nodes, colors)))
+#norm=cmap.colors.LogNorm(vmin=zmin, vmax=zmax)
+#norm=cm.colors.LogNorm(vmin=zmin, vmax=zmax)
 
 top = cm.get_cmap('Oranges_r', 125)
 bottom = cm.get_cmap('Blues', 125)
 
 newcolors = np.vstack((top(np.linspace(0, 1, 125)),bottom(np.linspace(0, 1, 125))))
 
-print(newcolors)
-
-#print(len(cmap))
-#print( cm.get_cmap(cmap, len(levels) - 1))
-
-#my_mpa = cm.get_cmap(cmap, len(levels) - 1)
-#print(my_mpa(0))
 
 
-fig = plt.figure()
-ax = fig.add_subplot(111, projection = "3d")
 
 ##############################
 #####define x-axis labels#####
@@ -52,7 +51,7 @@ labels_y = ['', r'$\langle e |$','', r'$\langle \ell |$']
 
 ax.set_xlabel('')
 ax.set_ylabel('')
-ax.set_zlabel("Probability")
+ax.set_zlabel("Amplitude")
 ax.set_xlim3d(-1.0,1.0)
 ax.set_ylim3d(-1.0,1.0)
 ax.set_zlim3d(-1.0,1.0)
@@ -106,9 +105,14 @@ _zpos = zpos   # the starting zpos for each bar
 colors = ['r', 'b', 'g', 'y']
 for i in range(n_steps):
     # (colors[i])
-    ax.bar3d(xpos, ypos, _zpos, dx, dy, dz[i], color=(cmap(0.5-i*step*bin1/2.0),cmap(0.5-i*step*bin2/2.0),cmap(0.5-i*step*bin3/2.0),cmap(0.5-i*step*bin4/2.0)))
+    print(0.5-i*step*bin1/2.0,cmap(0.5-i*step*bin1/2.0))
+    pcb = ax.bar3d(xpos, ypos, _zpos, dx, dy, dz[i], color=(cmap(0.5+i*step*bin1/2.0),cmap(0.5+9*i*step*bin2/2.0),cmap(0.5+3*i*step*bin3/2.0),cmap(0.5+2*i*step*bin4/2.0)))
+    #ax.bar3d(xpos, ypos, _zpos, dx, dy, dz[i], norm=cm.colors.Normalize(vmin=zmin, vmax=zmax), cmap="coolwarm")
     _zpos += dz[i]    # add the height of each bar to know where to start the next
     #print(_zpos)
 
+#fig.colorbar(pcb, ax=ax)
+
+fig.colorbar(cm.ScalarMappable(norm=norm, cmap=cmap), ax=ax)
 plt.gca().invert_xaxis()
 plt.show()
