@@ -58,8 +58,8 @@ else:
 ###Parse csv file and get list
 ##############################
 #x,y = csv_parser(input_file_name)
-x,y = csv_parser_keys_xy(input_file_name,'delay_(ps)','threefold_(counts_per_2min)')#no-spools
-#x,y = csv_parser_keys_xy(input_file_name,'delay_(ps)','threefold_(counts_per_600s)')#with-spools
+#x,y = csv_parser_keys_xy(input_file_name,'delay_(ps)','threefold_(counts_per_2min)')#no-spools
+x,y = csv_parser_keys_xy(input_file_name,'delay_(ps)','threefold_(counts_per_600s)')#with-spools
 
 ################################
 ##########PERFORM FIT###########

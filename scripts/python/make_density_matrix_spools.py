@@ -15,7 +15,7 @@ import os
 import time
 
 
-zmax = 1.0
+zmax = 0.1#max z-scale
 zmin = 0.0
 norm = cm.colors.Normalize(vmax=zmax, vmin=-zmax)
 
@@ -64,16 +64,17 @@ print(dy,dx)
 dz = []
 #n_steps = 100
 step = 1.0/n_steps
+
 #mapping is [ee, le, el, ll]
 #early-teleportation
-#bin = [0.041, -0.026 , -0.026, 0.959]#Re-part early teleportation
+#bin = [0.014, 0.035 , 0.035, 0.986]#Re-part early teleportation
 #bin = np.array([0.0, 0.009 , -0.009, 0.0])#Im-part early teleportation
 #late-teleportation
-bin = [0.952,-0.037,-0.037,0.048]#Re-part late teleportation
-#bin = [0.0,-0.059,0.059,0.0]#Im-part late teleportation
+#bin = [0.962,-0.056,-0.056,0.038]#Re-part late teleportation
+#bin = [0.0,-0.042,0.042,0.0]#Im-part late teleportation
 #plus-teleportation
-#bin = [0.517,0.350,0.350,0.483]#Re-part plus teleportation
-#bin = [0.0,-0.002,0.002,0.0]#Im-part plus teleportation
+#bin = [0.515,0.331,0.331,0.485]#Re-part plus teleportation
+bin = [0.0,0.029,-0.029,0.0]#Im-part plus teleportation
 
 
 fig = plt.figure()

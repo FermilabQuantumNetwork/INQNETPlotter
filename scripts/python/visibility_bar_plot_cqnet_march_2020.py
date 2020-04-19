@@ -24,19 +24,19 @@ if is_spools_ :
     #####Spools result from CQNET-March2020
     ##########################################
     print('[INFO]: plotting spool data')
-    dsm_means = [0.9853, 0.9834, 0.8400, 0.8900]#Decoy State Method (DSM) teleportation results
-    dsm_unc   = [0.0105, 0.0175, 0.0450, 0.0187]#DSM uncetainty
-    qst_means = [0.9620, 0.9860, 0.8733, 0.9010]#Quamtum State Tomography (QST) teleportation results
-    qst_unc   = [0.0186, 0.0064, 0.0417, 0.0288]#QST uncetainty
+    dsm_means = [0.9861, 0.9842, 0.845, 0.8917166667]#Decoy State Method (DSM) teleportation results
+    dsm_unc   = [0.0088, 0.0087, 0.0332, 0.02222921626]#DSM uncertainty
+    qst_means = [0.986, 0.962, 0.831, 0.8786666667]#Quamtum State Tomography (QST) teleportation results
+    qst_unc   = [0.0064, 0.0186, 0.0497, 0.03329512811]#QST uncertainty
 else:
     print('[INFO]: plotting no-spool data')
     ##########################################
     #####No-spools result from CQNET-March2020
     ##########################################
-    dsm_means = [0.981, 0.9983, 0.9236, 0.944]#Decoy State Method (DSM) teleportation results
-    dsm_unc   = [0.0321, 0.0246, 0.0794, 0.0332]#DSM uncetainty
-    qst_means = [0.952, 0.959, 0.8566, 0.890]#Quamtum State Tomography (QST) teleportation results
-    qst_unc   = [0.012, 0.013, 0.0153, 0.0132]#QST uncetainty
+    dsm_means = [0.9925, 0.9792, 0.9028, 0.9304833333]#Decoy State Method (DSM) teleportation results
+    dsm_unc   = [0.0058, 0.0127, 0.0589, 0.03933555432]#DSM uncertainty
+    qst_means = [0.952, 0.959, 0.85, 0.8851666667]#Quamtum State Tomography (QST) teleportation results
+    qst_unc   = [0.012, 0.013, 0.016, 0.01106671687]#QST uncertainty
 
 
 #x = np.arange(len(labels))  # the label locations
@@ -97,5 +97,5 @@ fig.subplots_adjust(left=0.12, bottom=0.1, right=0.95, top=0.92)
 #horizontal lines
 plt.hlines(y=0.66, xmin=-0.4, xmax=3.8, colors='k', linestyles='dashed', label='',)
 plt.text(-0.6, 1.315, r'CQNET/FQNET Preliminary 2020', fontsize=15, style='italic')
-plt.savefig('var_plot.pdf')
+plt.savefig('summary_teleportation_plot_cqnet_with_spools.pdf')
 #plt.show()

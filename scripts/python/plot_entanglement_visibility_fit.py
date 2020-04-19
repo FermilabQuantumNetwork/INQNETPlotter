@@ -164,7 +164,8 @@ plt.legend(loc="upper right",fontsize="12", frameon=False)
 axis_offset = 0.01#define left and right offset from min and max x-position
 plt.ylim(0, 1.3*max_count_fit)
 plt.xlim(min(x)-axis_offset, max(x)+axis_offset)
-
+#change margins
+fig.subplots_adjust(left=0.15, bottom=0.12, right=0.95, top=0.92)
 ax.text(min(x)-axis_offset, 1.315*max_count_fit, r'CQNET/FQNET Preliminary 2020', fontsize=15, style='italic')
 
 print("--- %s seconds ---" % (time.time() - start_time))
