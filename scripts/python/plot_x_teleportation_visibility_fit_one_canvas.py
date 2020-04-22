@@ -49,8 +49,8 @@ else:
 ##############################
 ###Parse csv file and get list
 ##############################
-x,y,z = csv_parser_keys_xyz(input_file_name, 'Temp_(C)', 'bsm1_counts_per_40min', 'bsm2_counts_per_40min')##Spools
-#x,y,z = csv_parser_keys_xyz(input_file_name, 'Temp_(C)', 'bsm1_counts_per_12min', 'bsm2_counts_per_12min')## no-Spools
+#x,y,z = csv_parser_keys_xyz(input_file_name, 'Temp_(C)', 'bsm1_counts_per_40min', 'bsm2_counts_per_40min')##Spools
+x,y,z = csv_parser_keys_xyz(input_file_name, 'Temp_(C)', 'bsm1_counts_per_12min', 'bsm2_counts_per_12min')## no-Spools
 
 print('max y from data:', np.max(y))
 ##########################################
@@ -224,11 +224,15 @@ fig, ax = plt.subplots(1, num=304, sharex = True, sharey=True)
 ######TOP Plot##################
 ################################
 ax.errorbar(x, y, y_unc, fmt='or', ecolor="red",elinewidth=None, capsize=2, markerfacecolor='red', markersize=5)
-ax.plot(fine_x, sine_fit_eval,'-r', label = "Visibility: {:.2f}".format(visibility*100.)+r" $\pm$ "+"{:.2f}".format(full_visibility_unc*100.)+ "%")
+#ax.plot(fine_x, sine_fit_eval,'-r', label = "Visibility: {:.2f}".format(visibility*100.)+r" $\pm$ "+"{:.2f}".format(full_visibility_unc*100.)+ "%")
+ax.plot(fine_x, sine_fit_eval,'-r')
 #set x-y axis labels
 ax.legend(loc="upper right",fontsize="11", frameon=False)
-ax.set_ylabel("Three-fold coincidences / (40 min)",fontsize="14")
-plt.xlabel('Interferometer Temperature [C]',fontsize="14")
+#ax.set_ylabel("Three-fold coincidences / (40 min)",fontsize="15")
+ax.set_ylabel("Three-fold coincidences / (12 min)",fontsize="14")
+plt.xlabel('Interferometer Temperature (C)',fontsize="15")
+ax.tick_params(axis="x", labelsize=12)
+ax.tick_params(axis="y", labelsize=12)
 
 ###Set ticks and and tick labels to red
 #ax.tick_params(axis='y',color='r')
@@ -240,7 +244,9 @@ plt.xlabel('Interferometer Temperature [C]',fontsize="14")
 ################################
 ax2 = ax.twinx()
 ax2.errorbar(x, z, z_unc, fmt='ob', ecolor="blue",elinewidth=None, capsize=2, markerfacecolor='blue', markersize=5)
-ax2.plot(fine_x, sine_fit_eval_z,'-b', label = "Visibility: {:.2f}".format(visibility_z*100.)+r" $\pm$ "+"{:.2f}".format(full_visibility_unc_z*100.)+ "%")
+#ax2.plot(fine_x, sine_fit_eval_z,'-b', label = "Visibility: {:.2f}".format(visibility_z*100.)+r" $\pm$ "+"{:.2f}".format(full_visibility_unc_z*100.)+ "%")
+ax2.plot(fine_x, sine_fit_eval_z,'-b')
+ax2.tick_params(axis="y", labelsize=12)
 #set x-y axis labels
 #ax2.set_ylabel("Three-fold coincidences / (40 min)",fontsize="14")
 
@@ -273,7 +279,13 @@ ax2.spines['left'].set_linewidth(2.5)
 ax.yaxis.set_label_coords(-0.095, 0.5)
 ax.xaxis.set_label_coords(0.5, -0.085)
 fig.subplots_adjust(left=0.12, bottom=0.12, right=0.92, top=0.92)
-ax.text(min(x)-axis_offset, 1.625*max_count_fit, r'CQNET/FQNET Preliminary 2020', fontsize=15, style='italic')
+#ax.text(min(x)-axis_offset, 1.625*max_count_fit, r'CQNET/FQNET preliminary 2020', fontsize=15, style='italic')
+ax.text(min(x)-axis_offset, 1.625*max_count_fit, r'CQNET/FQNET 2020', fontsize=15, style='italic')
+
+combined_visibility = (visibility_z+visibility)/2.0
+combined_vis_uncertainty = np.sqrt(full_visibility_unc*full_visibility_unc/4.0 + full_visibility_unc_z*full_visibility_unc_z/4)
+ax.text(max(x)-55*axis_offset, 1.4*max_count_fit, "Visibility: {:.2f}".format(combined_visibility*100.)+r" $\pm$ "+"{:.2f}".format(combined_vis_uncertainty*100.)+ "%", fontsize=15)
+
 
 print("--- %s seconds ---" % (time.time() - start_time))
 #plt.show()
