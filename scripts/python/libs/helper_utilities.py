@@ -9,7 +9,7 @@ command_line_parser = argparse.ArgumentParser(description='obtain command line i
 command_line_parser.add_argument('--input_file_name',  dest='input_file_name',  help="provide input file: --input_file_name <path_to_file>")
 command_line_parser.add_argument('--output_file_name', dest='output_file_name', help="provide input file: --output_file_name <path_to_file>")
 command_line_parser.add_argument('--teleportation_type', dest='teleportation_type', help="provide teleportation type: --teleportation_type <early,late,plus>")
-command_line_parser.add_argument('--spools', dest='spools', help="provide spools or no-spool option: --spools <True,False>")
+command_line_parser.add_argument('--spools',action='store_true', dest='spools', default=False, help="default: False; when using < --spools > will activate spools ON")
 
 #############################
 ####CSV 2 column parser######

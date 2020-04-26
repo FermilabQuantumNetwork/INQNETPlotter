@@ -40,7 +40,7 @@ else:
 ############################
 ###spool vs no-spool option
 ############################
-_spools = None
+_spools = False
 if parser.spools == None:
     print('[ERROR] Must provide spool=True or spool=False. EXIT!')
     print('[HELP] Run: python make_density_matrix_spools_1d.py --help')
@@ -48,17 +48,29 @@ if parser.spools == None:
 else:
     _spools = parser.spools
 
+print('spools: ', _spools)
 #############################
 ###check for output_file_name
 ###if not present use default
 #############################
-output_file_name = 'HOM.pdf'
+output_file_name = 'default_matrix.pdf'
 if parser.output_file_name == None:
     print('[WARNING] Did not provide an output_file_name. Will use default name:', output_file_name )
     print('[HELP] Run: python make_density_matrix_spools_1d.py --help')
 else:
     output_file_name = parser.output_file_name
 
+
+#########################################
+#print to command line running conditions
+#########################################
+print('[INFO]: running ',_teleportation_type,'teleportation_type option')
+if _spools:
+    print('[INFO]: using spools data')
+else:
+    print('[INFO]: using no-spools data')
+
+print('[INFO]: output file:', output_file_name)
 
 ##############################
 #####define x-axis labels#####
@@ -201,4 +213,4 @@ elif _teleportation_type == 'plus':
     ax[1].legend(handles=legend_elements, loc='upper center')
     ax[0].text( 1.85, 1.29, r'Teleportation of $|+\rangle$', fontsize=15, style='italic')
 
-plt.savefig('density_matrix_plot_cqnet_with_spools.pdf')
+plt.savefig(output_file_name)
