@@ -124,6 +124,7 @@ def autolabel2(rects):
 
 #plt.text(0, 0, r'CQNET/FQNET Preliminary', fontsize=15, style='italic')
 max_y = 1.25
+plt.subplots_adjust(hspace = 0.05)
 ax[0].set_ylim(-0.1, max_y)
 ax[1].set_ylim(-0.08, 0.08)
 fig.subplots_adjust(left=0.12, bottom=0.1, right=0.95, top=0.92)
