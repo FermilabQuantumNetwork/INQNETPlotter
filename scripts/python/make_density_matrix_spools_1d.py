@@ -80,45 +80,15 @@ fig, ax = plt.subplots(2,1, num=304, sharex = True)
 #rects1 = ax.bar(x , y_expected, width, yerr=0.0, error_kw=dict(lw=2, capsize=4, capthick=2), ecolor="royalblue", color="darkgrey",label='Single-photon fidelity from DSM')
 rects1 = ax[0].bar(x , y_expected_re, width, yerr=0.0, ecolor="royalblue", alpha=0.5, color="royalblue", label='theory (expected)')
 rects2 = ax[1].bar(x , y_expected_im, width, yerr=0.0, ecolor="royalblue", alpha=0.5, color="royalblue", label='theory (expected)')
-#rects1 = ax.bar(x , dsm_means, width, yerr=dsm_unc, error_kw=dict(lw=2, capsize=4, capthick=2), ecolor="darkgrey", color="royalblue",label='Single-photon fidelity from DSM')
 
 # Add some text for labels, title and custom x-axis tick labels, etc.
-ax[0].set_ylabel("Density matrix",fontsize="15")
+ax[0].set_ylabel("Real Part",fontsize="15")
 #ax.set_title('Scores by group and gender')
 ax[0].set_xticks(x)
 ax[0].set_xticklabels(labels)
 ax[1].tick_params(axis='x', which='major', labelsize=20)
-ax[1].set_ylabel("Density matrix",fontsize="15")
-#ax.legend()
+ax[1].set_ylabel("Imaginary Part",fontsize="15")
 
-def autolabel1(rects):
-    """Attach a text label above each bar in *rects*, displaying its height."""
-    ctr = 0
-    for rect in rects:
-        height = rect.get_height()
-        #print ('height:', height)
-        ax[0].annotate('{:.2f}'.format(height)+' $\pm$ ' + '{:.2f}'.format(dsm_unc[ctr]),
-                    xy=(rect.get_x() + rect.get_width() / 2, 1.0),
-                    xytext=(0, -180),  # 3 points vertical offset
-                    textcoords="offset points",
-                    ha='center', va='bottom',rotation=90,color='w',fontsize=14, style='normal')
-        ctr = ctr + 1
-
-def autolabel2(rects):
-    """Attach a text label above each bar in *rects*, displaying its height."""
-    ctr = 0
-    for rect in rects:
-        height = rect.get_height()
-        #print ('height:', height)
-        ax[0].annotate('{:.2f}'.format(height)+' $\pm$ ' + '{:.2f}'.format(qst_unc[ctr]),
-                    xy=(rect.get_x() + rect.get_width() / 2, 1.0),
-                    xytext=(0, -180),  # 3 points vertical offset
-                    textcoords="offset points",
-                    ha='center', va='bottom',rotation=90,color='w',fontsize=14, style='normal')
-        ctr = ctr + 1
-
-#autolabel1(rects1)
-#autolabel2(rects2)
 
 #fig.tight_layout()
 
@@ -126,9 +96,19 @@ def autolabel2(rects):
 max_y = 1.25
 plt.subplots_adjust(hspace = 0.05)
 ax[0].set_ylim(-0.1, max_y)
+ax[0].set_yticks((0, 0.25, 0.5, 0.75, 1))
+ax[0].set_yticklabels((r'$\bf{0}$', r'$\bf{0.25}$',r'$\bf{0.5}$',r'$\bf{0.75}$', r'$\bf{1}$'))
+ax[1].set_yticks((-0.05, 0, 0.05))
+ax[1].set_yticklabels((r'$\bf{-0.05}$', r'$\bf{0}$',r'$\bf{0.05}$'))
+#, (r'\bf{0}', r'\bf{0.25}',r'\bf{0.5}',r'\bf{0.75}', r'\bf{1}'), color='k', size=20)
 ax[1].set_ylim(-0.08, 0.08)
-fig.subplots_adjust(left=0.12, bottom=0.1, right=0.95, top=0.92)
-#horizontal lines
+fig.subplots_adjust(left=0.135, bottom=0.1, right=0.95, top=0.92)
+ax[0].yaxis.set_label_coords(-0.12, 0.5)
+ax[1].yaxis.set_label_coords(-0.12, 0.5)
+
+##########################################
+#horizontal red lines on top histogram bar
+##########################################
 for my_x, my_y in zip(x_expected,y_expected_re):
     line  = ax[0].hlines(y=my_y, xmin=my_x-width/2.0, xmax=my_x+width/2.0, colors='r', linestyles='dashed', label='',linewidth=2.5)
 for my_x, my_y in zip(x_expected,y_expected_im):
@@ -144,15 +124,17 @@ err2 = ax[1].errorbar(x_mesured, y_measured_im, yerr=0.0, fmt='ok', ecolor="k",e
 ##############################
 #add cosmetics
 ##############################
-ax[0].text(-0.4, 1.28, r'CQNET/FQNET 2020', fontsize=15, style='italic')
-ax[0].text( 2.0, 1.28, r'Teleportation of $| e \rangle$', fontsize=15, style='italic')
+ax[0].text(-0.4, 1.29, r'CQNET/FQNET 2020', fontsize=15, style='italic')
+ax[0].text( 1.9, 1.29, r'Teleportation of $| e \rangle$', fontsize=15, style='italic')
 
 
 ####################################
 #Legend
 ####################################
-legend_elements = [err1,
-mpatch.Rectangle(xy=(3.0,1.2),width=0.07,height=0.03,edgecolor='royalblue',alpha=0.5,facecolor='red', lw=4,hatch='|',label='Theory (expected)')]
+legend_elements = [
+err1,
+mpatch.Rectangle(xy=(3.0,1.2),width=0.07,height=0.03,edgecolor='royalblue',alpha=0.5,facecolor='red', lw=4,hatch='|',label='Theory (ideal)')
+]
 
 ax[0].legend(handles=legend_elements, loc='upper left')
 ax[1].legend(handles=legend_elements, loc='upper left')
