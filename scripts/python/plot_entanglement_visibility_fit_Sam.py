@@ -10,7 +10,7 @@ import datetime
 import math
 import os
 import time
-from libs.function_definitions import fit_sine #get sine fit function
+from libs.function_definitions import fit_sine, fit_sine_Sam #get sine fit function
 from libs.helper_utilities import csv_parser_keys_xyz# get x,y,z keys csv parser helper
 from libs.helper_utilities import command_line_parser#get command_line_parser
 
@@ -51,13 +51,15 @@ else:
 ##############################
 x,y,y_unc = csv_parser_keys_xyz(input_file_name, 'Temp_(C)', 'coins_per_30min', 'coinserr_per_30min')
 
+print("x: ",x)
+print("y ",y )
 print('max y from data:', np.max(y))
 ################################
 ##########PERFORM FIT###########
 ################################
 #y_err = np.sqrt(y)#assign poisson uncertainty to datapoints
 fine_x   = np.linspace(min(x)-0.01, max(x)+0.01, 5000)#guessing it get 100 equaly spaced points
-ent_visibility_fit_result = fit_sine(x, y, y_unc)## calls sine function model and also peforms fit
+ent_visibility_fit_result = fit_sine_Sam(x, y, y_unc)## calls sine function model and also peforms fit
 sine_fit_eval   = ent_visibility_fit_result['fit_func'](fine_x)# get fit function from the return list and evaluate for differen x-values
 amplitude       = ent_visibility_fit_result["amplitude"]#get amplitude parameter of the model
 omega           = ent_visibility_fit_result["omega"]#get omega parameter from model
