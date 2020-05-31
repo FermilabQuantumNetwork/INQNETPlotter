@@ -56,7 +56,7 @@ print('max y from data:', np.max(y))
 ##########PERFORM FIT###########
 ################################
 #y_err = np.sqrt(y)#assign poisson uncertainty to datapoints
-fine_x   = np.linspace(min(x)-0.01, max(x)+0.01, 5000)#guessing it get 100 equaly spaced points
+fine_x   = np.linspace(min(x)-0.01, max(x)+0.01, 100)#guessing it get 100 equaly spaced points
 ent_visibility_fit_result = fit_sine(x, y, y_unc)## calls sine function model and also peforms fit
 sine_fit_eval   = ent_visibility_fit_result['fit_func'](fine_x)# get fit function from the return list and evaluate for differen x-values
 amplitude       = ent_visibility_fit_result["amplitude"]#get amplitude parameter of the model
@@ -148,27 +148,27 @@ fig, ax = plt.subplots(1,1, num=304, sharex = True)
 ax.errorbar(x, y, np.sqrt(y), fmt='ob', ecolor="blue",elinewidth=None, capsize=2, markerfacecolor='blue', markersize=3)
 #ax.errorbar(x, y, np.sqrt(y), fmt='.k',capsize=2)
 #ax.plot(time_tab2_el_mins, bsm,  linestyle = '--', marker = '.', markersize = 8)
-ax.plot(fine_x, sine_fit_eval,'-r', label = "Visibility: {:.2f}".format(visibility*100.)+r" $\pm$ "+"{:.2f}".format(full_visibility_unc*100.)+ "%")
+ax.plot(fine_x, sine_fit_eval,'-r', label = r"$A\sin{(\omega T + \phi)}+C$"+"                  Visibility: {:.2f}".format(visibility*100.)+r" $\pm$ "+"{:.2f}%".format(full_visibility_unc*100.))#+ "%"+"\n"+r"$A =$"+"{:.2f}, ".format(amplitude)+r"$\omega =$"+"{:.2f}, ".format(omega)+r"$\phi =$"+"{:.2f}, ".format(phase)+r"$C =$"+"{:.2f}".format(offset))
 
 #set x-y axis labels
 ax.set_ylabel("Coincidences / (30 min)",fontsize="14")
-plt.xlabel('Interferometer Temperature [C]',fontsize="14")
+plt.xlabel("Interferometer Temperature "+r"($\degree$C)",fontsize="14")
 ##change x and y axis label possitions 0.5 is center of each axis
 ax.yaxis.set_label_coords(-0.13, 0.5)
 ax.xaxis.set_label_coords(0.5, -0.085)
 #move boundaries of pad inside the plot -- move to right and up
 fig.subplots_adjust(left=0.15, bottom=0.12, right=0.95, top=0.92)
 #make plot legend
-plt.legend(loc="upper right",fontsize="12", frameon=False)
+plt.legend(loc="upper left",fontsize="12", frameon=False)
 
 
 
 axis_offset = 0.01#define left and right offset from min and max x-position
 plt.ylim(0, 1.2*max_count_fit)
-plt.xlim(min(x)-axis_offset, max(x)+axis_offset)
+plt.xlim(x[len(x)-3]-2*axis_offset, max(x)+axis_offset)
 #change margins
 fig.subplots_adjust(left=0.15, bottom=0.12, right=0.95, top=0.92)
-ax.text(min(x)-axis_offset, 1.215*max_count_fit, r'CQNET/FQNET Preliminary 2020', fontsize=15, style='italic')
+ax.text(x[len(x)-2]-axis_offset, 1.215*max_count_fit, r'CQNET/FQNET Preliminary 2020', fontsize=15, style='italic')
 
 print("--- %s seconds ---" % (time.time() - start_time))
 #plt.show()
