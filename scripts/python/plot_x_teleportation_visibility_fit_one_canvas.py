@@ -38,7 +38,8 @@ else:
 ###check for output_file_name
 ###if not present use default
 #############################
-output_file_name = 'entanglement_visibility_fit.pdf'
+output_file_name = 'XTeleport2020Feb7_xteleport_visibility_no_spools_cqnet_paper_April20_1.pdf'
+#output_file_name = 'XTeleport2020Mar17_xteleport_visibility_with_spools_cqnet_paper_April20_1.pdf'
 if parser.output_file_name == None:
     print('[WARNING] Did not provide an output_file_name. Will use default name:', output_file_name )
     print('[HELP] Run: python plot_hom_and_fit.py --help')
@@ -224,15 +225,17 @@ fig, ax = plt.subplots(1, num=304, sharex = True, sharey=True)
 ######TOP Plot##################
 ################################
 ax.errorbar(x, y, y_unc, fmt='or', ecolor="red",elinewidth=None, capsize=2, markerfacecolor='red', markersize=5)
-#ax.plot(fine_x, sine_fit_eval,'-r', label = "Visibility: {:.2f}".format(visibility*100.)+r" $\pm$ "+"{:.2f}".format(full_visibility_unc*100.)+ "%")
-ax.plot(fine_x, sine_fit_eval,'-r')
+ax.plot(fine_x, sine_fit_eval,'-r', label = r"$V_{+,1}$"+": {:.1f}".format(visibility*100.)+r" $\pm$ "+"{:.1f}".format(full_visibility_unc*100.)+ "%")
+#ax.plot(fine_x, sine_fit_eval,'-r')
 #set x-y axis labels
-ax.legend(loc="upper right",fontsize="11", frameon=False)
-#ax.set_ylabel("Three-fold coincidences / (40 min)",fontsize="15")
-ax.set_ylabel("Three-fold coincidences / (12 min)",fontsize="14")
-plt.xlabel('Interferometer Temperature (C)',fontsize="15")
-ax.tick_params(axis="x", labelsize=12)
-ax.tick_params(axis="y", labelsize=12)
+ax.legend(loc="upper left",bbox_to_anchor=(0.06, 0.99),fontsize="13", frameon=False)
+ax.set_ylabel("Three-fold coincidences / (12 min)",fontsize="16")
+#ax.set_ylabel("Three-fold coincidences / (40 min)",fontsize="16")
+plt.xlabel('Interferometer Temperature (C)',fontsize="16")
+ax.tick_params(axis="x", labelsize=14)
+ax.tick_params(axis="y", labelsize=14)
+
+
 
 ###Set ticks and and tick labels to red
 #ax.tick_params(axis='y',color='r')
@@ -243,22 +246,25 @@ ax.tick_params(axis="y", labelsize=12)
 ###Bottom Plot##################
 ################################
 ax2 = ax.twinx()
+ax2.tick_params(axis="y", labelsize=16)
 ax2.errorbar(x, z, z_unc, fmt='ob', ecolor="blue",elinewidth=None, capsize=2, markerfacecolor='blue', markersize=5)
-#ax2.plot(fine_x, sine_fit_eval_z,'-b', label = "Visibility: {:.2f}".format(visibility_z*100.)+r" $\pm$ "+"{:.2f}".format(full_visibility_unc_z*100.)+ "%")
-ax2.plot(fine_x, sine_fit_eval_z,'-b')
-ax2.tick_params(axis="y", labelsize=12)
+ax2.plot(fine_x, sine_fit_eval_z,'--b', label = r"$V_{+,2}$"+": {:.1f}".format(visibility_z*100.)+r" $\pm$ "+"{:.1f}".format(full_visibility_unc_z*100.)+ "%")
+#ax2.plot(fine_x, sine_fit_eval_z,'-b')
+#ax2.set_ylabel("Three-fold coincidences / (12 min)",fontsize="14",rotation=270)
+ax2.tick_params(axis="y", labelsize=14)
 #set x-y axis labels
 #ax2.set_ylabel("Three-fold coincidences / (40 min)",fontsize="14")
 
+#fig.axes[1].annotate("", xy=(0, 0.5), xytext=(0, 0), arrowprops=dict(arrowstyle="<-"))
 
 ###Set ticks and and tick labels to red
 #ax2.tick_params(axis='y',color='b')
 #plt.setp(ax2.get_yticklabels(), color="blue")
-ax.legend(loc="upper left",fontsize="11", frameon=False)
+#ax.legend(loc="upper left",fontsize="11", frameon=False)
 #move boundaries of pad inside the plot -- move to right and up
-fig.subplots_adjust(left=0.1, bottom=0.12, right=0.95, top=0.92)
+
 #make plot legend
-plt.legend(loc="upper right",fontsize="11", frameon=False)
+plt.legend(loc="upper right",bbox_to_anchor=(1.02, 0.99),fontsize="13", frameon=False)
 
 
 
@@ -266,28 +272,38 @@ axis_offset = 0.01#define left and right offset from min and max x-position
 ax.set_ylim(0, 1.6*max_count_fit)
 ax2.set_ylim(0, 1.6*max_count_fit_z)
 plt.xlim(min(x)-axis_offset, max(x)+axis_offset)
+
 #plt.axvline(x=max(x), c='b')
-ax.spines['right'].set_color('blue')
-ax2.spines['right'].set_color('blue')
-ax2.spines['right'].set_linewidth(2.5)
-ax.spines['left'].set_color('red')
-ax2.spines['left'].set_color('red')
-ax2.spines['left'].set_linewidth(2.5)
+# ax.spines['right'].set_color('blue')
+# ax2.spines['right'].set_color('blue')
+# ax2.spines['right'].set_linewidth(2.5)
+# ax.spines['left'].set_color('red')
+# ax2.spines['left'].set_color('red')
+# ax2.spines['left'].set_linewidth(2.5)
 
 
 ##change x and y axis label possitions 0.5 is center of each axis
-ax.yaxis.set_label_coords(-0.095, 0.5)
-ax.xaxis.set_label_coords(0.5, -0.085)
-fig.subplots_adjust(left=0.12, bottom=0.12, right=0.92, top=0.92)
-#ax.text(min(x)-axis_offset, 1.625*max_count_fit, r'CQNET/FQNET preliminary 2020', fontsize=15, style='italic')
-ax.text(min(x)-axis_offset, 1.625*max_count_fit, r'CQNET/FQNET 2020', fontsize=15, style='italic')
+ax.yaxis.set_label_coords(-0.11, 0.5)
+ax.xaxis.set_label_coords(0.5, -0.1)
+#fig.subplots_adjust(left=0.05, bottom=0.12, right=2, top=0.92)
+fig.subplots_adjust(left=0.15, bottom=0.15, right=0.92, top=0.92)
+
+ax.text(min(x)-axis_offset, 1.625*max_count_fit, r'CQNET/FQNET Preliminary 2020', fontsize=15, style='italic')
+ax.text(min(x)+1.1*axis_offset, 1.45*max_count_fit, "a)", fontsize=18)#, style='italic')
+ax.text(24.18, 225, r'$\leftarrow$', fontsize=30, color = 'r')
+ax2.text(24.86, 110, r'$\rightarrow$', fontsize=30, color = 'b')
+#ax.text(24.0985, 19.95, r'$\leftarrow$', fontsize=30, color = 'r')
+#ax2.text(24.525, 18.85, r'$\rightarrow$', fontsize=30, color = 'b')
+
 
 combined_visibility = (visibility_z+visibility)/2.0
 combined_vis_uncertainty = np.sqrt(full_visibility_unc*full_visibility_unc/4.0 + full_visibility_unc_z*full_visibility_unc_z/4)
-ax.text(max(x)-55*axis_offset, 1.4*max_count_fit, "Visibility: {:.2f}".format(combined_visibility*100.)+r" $\pm$ "+"{:.2f}".format(combined_vis_uncertainty*100.)+ "%", fontsize=15)
-
+#ax.text(max(x)-55*axis_offset, 1.4*max_count_fit, "Visibility: {:.2f}".format(combined_visibility*100.)+r" $\pm$ "+"{:.2f}".format(combined_vis_uncertainty*100.)+ "%", fontsize=15)
+#plt.annotate(s='', xy=(1,1), xytext=(0,0), arrowprops=dict(arrowstyle='<->'))
 
 print("--- %s seconds ---" % (time.time() - start_time))
 #plt.show()
 print('[INFO] Saving plot as <', output_file_name,'>')
 plt.savefig(output_file_name)
+
+plt.show()

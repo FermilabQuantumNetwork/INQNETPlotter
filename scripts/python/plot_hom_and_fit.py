@@ -38,7 +38,7 @@ else:
 ###check for output_file_name
 ###if not present use default
 #############################
-output_file_name = 'HOM.pdf'
+output_file_name = 'HOM_noSpools.pdf'
 if parser.output_file_name == None:
     print('[WARNING] Did not provide an output_file_name. Will use default name:', output_file_name )
     print('[HELP] Run: python plot_hom_and_fit.py --help')
@@ -98,24 +98,30 @@ fig, ax = plt.subplots(1,1, num=304, sharex = True)
 ax.errorbar(x, y, np.sqrt(y), fmt='ob', ecolor="blue",elinewidth=None, capsize=2, markerfacecolor='blue', markersize=6)
 #ax.errorbar(x, y, np.sqrt(y), fmt='.k',capsize=2)
 #ax.plot(time_tab2_el_mins, bsm,  linestyle = '--', marker = '.', markersize = 8)
-ax.plot(fineDelay,homfitArr,'-r', label = "Visibility: {:.1f}".format(visib*100.)+r" $\pm$ "+"{:.1f}".format(perr[2]*100)+ "%")
-ax.set_ylabel("Three-fold coincidences / (2 min)",fontsize="14")
+ax.plot(fineDelay,homfitArr,'-r', label = r"$V_{HOM}$"+": {:.1f}".format(visib*100.)+r" $\pm$ "+"{:.1f}".format(perr[2]*100)+ "%")
+ax.set_ylabel("Three-fold coincidences / (10 min)",fontsize="16")
 
 #set x-y axis labels
 plt.legend(loc="upper right",fontsize="12", frameon=False)
-plt.xlabel('Alice-Bob time delay [ps]',fontsize="14")
+plt.xlabel('$\Delta t_{AB}$'+' (ps)',fontsize="16")
 ##change x and y axis label possitions 0.5 is center of each axis
-ax.yaxis.set_label_coords(-0.085, 0.5)
+ax.yaxis.set_label_coords(-0.095, 0.5)
 ax.xaxis.set_label_coords(0.5, -0.085)
 #
 fig.subplots_adjust(left=0.12, bottom=0.12, right=0.95, top=0.92)
+#fig.subplots_adjust(left=0.12, bottom=0.12, right=0.95, top=0.98)
 plt.ylim(0.5*np.min(y), 1.3*y_max_val)
 #plt.xlim(-30, 1630)
 axis_offset = 50.0#define left and right offset from min and max x-position
 plt.xlim(min(x)-axis_offset, max(x)+axis_offset)
+ax.text(min(x)-0.5*axis_offset, 1.2*y_max_val, 'a)', fontsize=20)#, style='italic')
+plt.setp(ax.get_xticklabels(), fontsize=14)
+plt.setp(ax.get_yticklabels(), fontsize=14)
 ax.text(min(x)-axis_offset, 1.315*y_max_val, r'CQNET/FQNET Preliminary 2020', fontsize=15, style='italic')
 
 print("--- %s seconds ---" % (time.time() - start_time))
 #plt.show()
 print('[INFO] Saving plot as <', output_file_name,'>')
 plt.savefig(output_file_name)
+
+plt.show()

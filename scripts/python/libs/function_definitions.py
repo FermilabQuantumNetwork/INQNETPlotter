@@ -61,3 +61,26 @@ def fit_sine(tt, yy,ee):
     f = w/(2.*np.pi)
     fitfunc = lambda t: A * np.sin(w*t + p) + c
     return {"amplitude": A, "omega": w, "phase": p, "offset": c, "freq": f, "period": 1./f, 'fit_func': fitfunc, "maxcov": np.max(pcov), "rawres": (guess,popt,pcov), 'parameter_unc': perr}
+
+###########################################
+###############Define Sine fit#############
+###########################################
+def fit_sine_Sam(tt, yy,ee):
+    '''Fit sin to the input time sequence, and return fitting parameters "amp", "omega", "phase", "offset", "freq", "period" and "fitfunc"'''
+    tt = np.array(tt)
+    yy = np.array(yy)
+    ff = np.fft.fftfreq(len(tt), (tt[1]-tt[0]))   # assume uniform spacing
+    Fyy = abs(np.fft.fft(yy))
+    guess_freq = abs(ff[np.argmax(Fyy[1:])+1])   # excluding the zero frequency "peak", which is related to offset
+    guess_amp = 12881.089424177499#(np.max(yy)-np.min(yy))/2.0#np.std(yy) * 2.**0.5
+    guess_offset = np.mean(yy)
+    guess = np.array([guess_amp, 2.*np.pi*guess_freq, 0., guess_offset])
+    print ('guess parameters:', guess)
+
+    popt, pcov = scipy.optimize.curve_fit(sine_func, tt, yy, sigma = ee, absolute_sigma=True, p0=guess)
+    perr = np.sqrt(np.diag(pcov))
+    A, w, p, c = popt
+    print(A, w, p,c)
+    f = w/(2.*np.pi)
+    fitfunc = lambda t: A * np.sin(w*t + p) + c
+    return {"amplitude": A, "omega": w, "phase": p, "offset": c, "freq": f, "period": 1./f, 'fit_func': fitfunc, "maxcov": np.max(pcov), "rawres": (guess,popt,pcov), 'parameter_unc': perr}
