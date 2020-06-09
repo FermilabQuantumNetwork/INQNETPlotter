@@ -6,13 +6,13 @@ import numpy as np
 ##############################
 #####define x-axis labels#####
 ##############################
-labels = [r'$| e \rangle$', r'$| \ell \rangle$', r'$|+\rangle$', 'Average']
+labels = [r'$| e \rangle$', r'$| l \rangle$', r'$|+\rangle$', 'Average']
 
 ######################################
 #flag to determin what data to plot
 #is_spools_ = True -> plot spool data
 #####################################
-is_spools_ = True
+is_spools_ = False
 #define lists for plot
 dsm_means = []
 dsm_unc = []
@@ -96,11 +96,11 @@ autolabel2(rects2)
 #plt.text(0, 0, r'CQNET/FQNET Preliminary', fontsize=15, style='italic')
 max_y = 1.3
 plt.ylim(0, max_y)
-#fig.subplots_adjust(left=0.13, bottom=0.1, right=0.95, top=0.92)
-fig.subplots_adjust(left=0.13, bottom=0.1, right=0.95, top=0.98)
+fig.subplots_adjust(left=0.13, bottom=0.1, right=0.95, top=0.92)
+#fig.subplots_adjust(left=0.13, bottom=0.1, right=0.95, top=0.98)
 #horizontal lines
 plt.hlines(y=0.66, xmin=-0.4, xmax=3.8, colors='k', linestyles='dashed', label='',)
-plt.text(-0.5, 1.2, "b)", fontsize=20)#, style='italic')
-#plt.text(-0.6, 1.315, r'CQNET/FQNET Preliminary 2020', fontsize=15, style='italic')
+plt.text(-0.5, 1.2, "a)", fontsize=20)#, style='italic')
+plt.text(-0.6, 1.315, r'CQNET/FQNET Preliminary 2020', fontsize=15, style='italic')
 plt.savefig(filename)
 plt.show()

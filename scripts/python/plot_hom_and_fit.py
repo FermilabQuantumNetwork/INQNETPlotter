@@ -74,6 +74,7 @@ print("t0: ",resbsm["t0"])
 print("T: ",resbsm["T"])
 print("R: ",resbsm["R"])
 print("C: ",resbsm["C"])
+print("sigma: ",resbsm["sigma"])
 print(perr[2])
 print(perr)
 

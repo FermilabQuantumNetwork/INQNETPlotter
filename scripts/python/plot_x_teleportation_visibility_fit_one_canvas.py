@@ -38,8 +38,8 @@ else:
 ###check for output_file_name
 ###if not present use default
 #############################
-output_file_name = 'XTeleport2020Feb7_xteleport_visibility_no_spools_cqnet_paper_April20_1.pdf'
-#output_file_name = 'XTeleport2020Mar17_xteleport_visibility_with_spools_cqnet_paper_April20_1.pdf'
+#output_file_name = 'XTeleport2020Feb7_xteleport_visibility_no_spools_cqnet_paper_April20_1.pdf'
+output_file_name = 'XTeleport2020Mar17_xteleport_visibility_with_spools_cqnet_paper_April20_1.pdf'
 if parser.output_file_name == None:
     print('[WARNING] Did not provide an output_file_name. Will use default name:', output_file_name )
     print('[HELP] Run: python plot_hom_and_fit.py --help')
@@ -50,8 +50,8 @@ else:
 ##############################
 ###Parse csv file and get list
 ##############################
-#x,y,z = csv_parser_keys_xyz(input_file_name, 'Temp_(C)', 'bsm1_counts_per_40min', 'bsm2_counts_per_40min')##Spools
-x,y,z = csv_parser_keys_xyz(input_file_name, 'Temp_(C)', 'bsm1_counts_per_12min', 'bsm2_counts_per_12min')## no-Spools
+x,y,z = csv_parser_keys_xyz(input_file_name, 'Temp_(C)', 'bsm1_counts_per_40min', 'bsm2_counts_per_40min')##Spools
+#x,y,z = csv_parser_keys_xyz(input_file_name, 'Temp_(C)', 'bsm1_counts_per_12min', 'bsm2_counts_per_12min')## no-Spools
 
 print('max y from data:', np.max(y))
 ##########################################
@@ -229,9 +229,9 @@ ax.plot(fine_x, sine_fit_eval,'-r', label = r"$V_{+,1}$"+": {:.1f}".format(visib
 #ax.plot(fine_x, sine_fit_eval,'-r')
 #set x-y axis labels
 ax.legend(loc="upper left",bbox_to_anchor=(0.06, 0.99),fontsize="13", frameon=False)
-ax.set_ylabel("Three-fold coincidences / (12 min)",fontsize="16")
-#ax.set_ylabel("Three-fold coincidences / (40 min)",fontsize="16")
-plt.xlabel('Interferometer Temperature (C)',fontsize="16")
+#ax.set_ylabel("Three-fold coincidences / (12 min)",fontsize="16")
+ax.set_ylabel("Three-fold coincidences / (40 min)",fontsize="16")
+plt.xlabel('Interferometer Temperature '+r'($\degree$C)',fontsize="16")
 ax.tick_params(axis="x", labelsize=14)
 ax.tick_params(axis="y", labelsize=14)
 
@@ -288,12 +288,12 @@ ax.xaxis.set_label_coords(0.5, -0.1)
 #fig.subplots_adjust(left=0.05, bottom=0.12, right=2, top=0.92)
 fig.subplots_adjust(left=0.15, bottom=0.15, right=0.92, top=0.92)
 
-ax.text(min(x)-axis_offset, 1.625*max_count_fit, r'CQNET/FQNET Preliminary 2020', fontsize=15, style='italic')
-ax.text(min(x)+1.1*axis_offset, 1.45*max_count_fit, "a)", fontsize=18)#, style='italic')
-ax.text(24.18, 225, r'$\leftarrow$', fontsize=30, color = 'r')
-ax2.text(24.86, 110, r'$\rightarrow$', fontsize=30, color = 'b')
-#ax.text(24.0985, 19.95, r'$\leftarrow$', fontsize=30, color = 'r')
-#ax2.text(24.525, 18.85, r'$\rightarrow$', fontsize=30, color = 'b')
+#ax.text(min(x)-axis_offset, 1.625*max_count_fit, r'CQNET/FQNET Preliminary 2020', fontsize=15, style='italic')
+ax.text(min(x)+1.1*axis_offset, 1.45*max_count_fit, "b)", fontsize=18)#, style='italic')
+# ax.text(24.18, 225, r'$\leftarrow$', fontsize=30, color = 'r')
+# ax2.text(24.86, 110, r'$\rightarrow$', fontsize=30, color = 'b')
+ax.text(24.0985, 19.95, r'$\leftarrow$', fontsize=30, color = 'r')
+ax2.text(24.525, 18.85, r'$\rightarrow$', fontsize=30, color = 'b')
 
 
 combined_visibility = (visibility_z+visibility)/2.0

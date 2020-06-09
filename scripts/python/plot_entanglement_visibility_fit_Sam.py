@@ -152,7 +152,7 @@ print("Entanglement Fidelity: ", 100*Fid_ent, " +- ", 100*Fid_ent_err, "%")
 ################################
 plt.rcParams.update({'lines.markeredgewidth': 1})
 fig, ax = plt.subplots(1,1, num=304, sharex = True)
-ax.errorbar(x, y, np.sqrt(y), fmt='ob', ecolor="blue",elinewidth=None, capsize=2, markerfacecolor='blue', markersize=3)
+ax.errorbar(x, y, np.sqrt(y), fmt='ob', ecolor="blue",elinewidth=None, capsize=2, markerfacecolor='blue', markersize=6)
 #ax.errorbar(x, y, np.sqrt(y), fmt='.k',capsize=2)
 #ax.plot(time_tab2_el_mins, bsm,  linestyle = '--', marker = '.', markersize = 8)
 ax.plot(fine_x, sine_fit_eval,'-r', label = r"$V_{ent}$"+": {:.1f}".format(visibility*100.)+r" $\pm$ "+"{:.1f}%".format(full_visibility_unc*100.))#+ "%"+"\n"+r"$A =$"+"{:.2f}, ".format(amplitude)+r"$\omega =$"+"{:.2f}, ".format(omega)+r"$\phi =$"+"{:.2f}, ".format(phase)+r"$C =$"+"{:.2f}".format(offset))
@@ -166,7 +166,7 @@ ax.xaxis.set_label_coords(0.5, -0.09)
 #move boundaries of pad inside the plot -- move to right and up
 #fig.subplots_adjust(left=0.16, bottom=0.12, right=0.95, top=0.92)
 #make plot legend
-plt.legend(loc="upper left",fontsize="14", frameon=False)
+plt.legend(loc="upper left",fontsize="16", frameon=False)
 plt.setp(ax.get_xticklabels(), fontsize=14)
 plt.setp(ax.get_yticklabels(), fontsize=14)
 
@@ -176,10 +176,13 @@ axis_offset = 0.01#define left and right offset from min and max x-position
 plt.ylim(0, 1.2*max_count_fit)
 plt.xlim(x[len(x)-3]-2*axis_offset, max(x)+axis_offset)
 #change margins
-fig.subplots_adjust(left=0.16, bottom=0.12, right=0.95, top=0.98)
+fig.subplots_adjust(left=0.16, bottom=0.12, right=0.95, top=0.92)
+ax.text(x[len(x)-2]+4*axis_offset, 1.215*max_count_fit, r'CQNET/FQNET Preliminary 2020', fontsize=15, style='italic')
 #ax.text(x[len(x)-2]-axis_offset, 1.215*max_count_fit, r'CQNET/FQNET Preliminary 2020', fontsize=15, style='italic')
 
 print("--- %s seconds ---" % (time.time() - start_time))
 #plt.show()
 print('[INFO] Saving plot as <', output_file_name,'>')
 plt.savefig(output_file_name)
+
+plt.show()
